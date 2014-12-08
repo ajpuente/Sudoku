@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
+
 public class Save {
 
     // Instance Variables
@@ -21,7 +22,7 @@ public class Save {
         this.difficulty = difficulty;
         if (difficulty != null && !difficulty.toString().equals("Devilish"))
             size = 9;
-        else if(difficulty != null)
+        else if (difficulty != null)
             size = 16;
     }
 
@@ -117,14 +118,14 @@ public class Save {
                     int count = JName.split(",", -1).length - 1;
 
                     if (count > 1 && !stringsArr[2].equals("init")) {
-                        out.println((i+1) + "," + (j+1) + "," + GameView.getJBoard().getTextField()[i][j].getText() + "," + stringsArr[2]);
+                        out.println((i + 1) + "," + (j + 1) + "," + GameView.getJBoard().getTextField()[i][j].getText() + "," + stringsArr[2]);
                     }
                 }
         } catch (IOException e) {
             //exception handling left as an exercise for the reader
         }
     }
-    
+
     public static boolean loadGame(String s, Difficulty d) {
         String user = s;
         if (!d.toString().equals("Devilish"))
@@ -141,19 +142,19 @@ public class Save {
         MainMenu.setView(ViewLoad);
         int lineNum = 1;
         String line;
-        
-        while (scanner.hasNextLine()){
+
+        while (scanner.hasNextLine()) {
             line = scanner.nextLine();
-            
+
             //sets the time of the game to the time when last saved
-            if(lineNum == 4){
+            if (lineNum == 4) {
                 ViewLoad.setElapsed(Integer.parseInt(line));
-            }   
-            
+            }
+
             lineNum++;
         }
         scanner.close();
-        
+
         ViewLoad.getBoard().PopulateBoard(new File(Tools.getDocumentsPath() + "/Sudoku/" + user + "/" + d + ".txt"));
         return true;
     }
@@ -198,7 +199,7 @@ public class Save {
         }
     }
 
-  
+
     public static void initialSave(Difficulty difficulty, String user) {
         try {
             Scanner scanner = new Scanner(new File(Tools.getDocumentsPath() + "/Sudoku/sudoku_input_file_example.txt"));
@@ -245,7 +246,7 @@ public class Save {
             System.err.println(e);
         }
     }
-    
+
     public static void initialSave(String file_path, Difficulty difficulty) {
         try {
             Scanner scanner = new Scanner(new File(file_path));

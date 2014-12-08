@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Files;
 import java.util.Scanner;
 
 public class MainBoard extends JPanel {
@@ -74,11 +73,11 @@ public class MainBoard extends JPanel {
             int count = strings.split(",", -1).length - 1;
             int doodle_num = 3;
             if (difficulty.toString().equals("Devilish"))
-                doodle_num =2;
+                doodle_num = 2;
             if (count >= 2 && stringsArr[2].equals("init")) {
             } else if (getdoodleSelected() == true && getDoodleAmount(getFCoordinates()) < doodle_num) {
                 if (!isInteger(input) && difficulty.toString().equals("Devilish"))
-                    switch (input.toLowerCase()){
+                    switch (input.toLowerCase()) {
                         case "q":
                             setCellDoodle(10 + "", getFCoordinates());
                             break;
@@ -101,14 +100,14 @@ public class MainBoard extends JPanel {
                             setCellDoodle(16 + "", getFCoordinates());
                             break;
                     }
-                else if (isInteger(input)){
-                getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",doodle");
-                setCellDoodle(input, getFCoordinates());
+                else if (isInteger(input)) {
+                    getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",doodle");
+                    setCellDoodle(input, getFCoordinates());
                 }
             } else if (getdoodleSelected() == false) {
                 if (!input.equals("0")) { //add integer values only
                     if (!isInteger(input) && difficulty.toString().equals("Devilish"))
-                        switch (input.toLowerCase()){
+                        switch (input.toLowerCase()) {
                             case "q":
                                 setCell(10 + "", getFCoordinates());
                                 break;
@@ -131,13 +130,12 @@ public class MainBoard extends JPanel {
                                 setCell(16 + "", getFCoordinates());
                                 break;
                         }
-                    else if (isInteger(input)){
-                    setCell(input, getFCoordinates()); //set cell to inputed number
-                    getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",guess," + view.getTimer());
+                    else if (isInteger(input)) {
+                        setCell(input, getFCoordinates()); //set cell to inputed number
+                        getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",guess," + view.getTimer());
                     }
                     isFinished(difficulty);
-                }
-                else if (input.equals("0")) { //blank
+                } else if (input.equals("0")) { //blank
                     setCell("", getFCoordinates());
                     getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1]);
                 }
@@ -217,8 +215,8 @@ public class MainBoard extends JPanel {
         String stringsArr[] = getFCoordinates().getName().split(",");
         int count = getFCoordinates().getName().split(",", -1).length - 1;
 
-        
-        if(count >= 2 && !stringsArr[2].equals("init")){
+
+        if (count >= 2 && !stringsArr[2].equals("init")) {
             setCell("", f2);
             doodleAmount[coordinates[0]][coordinates[1]] = 0; //reset doodle amount back to 0
             getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1]);
@@ -239,7 +237,7 @@ public class MainBoard extends JPanel {
         int count = strings.split(",", -1).length - 1;
         int doodle_num = 3;
         if (difficulty.toString().equals("Devilish"))
-            doodle_num =2;
+            doodle_num = 2;
         if (count == 2 && stringsArr[2].equals("init")) {
         } else if (getdoodleSelected() == true && getDoodleAmount(getFCoordinates()) < doodle_num) {
             getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",doodle");
@@ -248,7 +246,7 @@ public class MainBoard extends JPanel {
             getFCoordinates().setName(stringsArr[0] + "," + stringsArr[1] + ",guess");
             setCell(num, getFCoordinates());
         }
-        
+
         boolean isEqual, isEmpty;
         for (int y = 0; y < size; y++)
             for (int x = 0; x < size; x++) {
@@ -269,7 +267,7 @@ public class MainBoard extends JPanel {
     public void setCellDoodle(String key, JTextField f2) {
         String doodle = f2.getText();
         int doodleLimit = getDoodleAmount(f2);
-       
+
         if (doodleLimit == 0)
             doodle = key;
         else
@@ -322,7 +320,7 @@ public class MainBoard extends JPanel {
 
     //create actual board with default settings 
     public final void CreateBoard(Difficulty difficulty) {
-        if (!difficulty.toString().equals("Devilish")){
+        if (!difficulty.toString().equals("Devilish")) {
             for (int x = 0; x <= 8; x++) {
                 for (int y = 0; y <= 8; y++) {
                     f[x][y] = new JTextField(1);
@@ -354,8 +352,7 @@ public class MainBoard extends JPanel {
                     add(p[j][i]);
                 }
             }
-        }
-        else{
+        } else {
             for (int x = 0; x <= 15; x++) {
                 for (int y = 0; y <= 15; y++) {
                     f[x][y] = new JTextField(1);
@@ -419,8 +416,8 @@ public class MainBoard extends JPanel {
         } catch (FileNotFoundException e) {
         }
     }
-    
-        public final void PopulateBoard(File file) {
+
+    public final void PopulateBoard(File file) {
         int info[] = new int[2];
         try {
             try (Scanner scanner = new Scanner(file)) {
@@ -432,21 +429,19 @@ public class MainBoard extends JPanel {
                         String stringCoorArr[] = line.split(",");
                         info[0] = Integer.parseInt(stringCoorArr[0]);
                         info[1] = Integer.parseInt(stringCoorArr[1]);
-                        
+
                         if (!isInteger(f[info[0] - 1][info[1] - 1].getText())) {
-                            if(stringCoorArr[3].equals("init")){
+                            if (stringCoorArr[3].equals("init")) {
                                 f[info[0] - 1][info[1] - 1].setText(stringCoorArr[2]);
                                 f[info[0] - 1][info[1] - 1].setName((info[0] - 1) + "," + (info[1] - 1) + ",init");
                                 f[info[0] - 1][info[1] - 1].setFont(Bold);
                                 f[info[0] - 1][info[1] - 1].setForeground(Color.BLUE);
-                            }
-                            else if(stringCoorArr[3].equals("guess")){
+                            } else if (stringCoorArr[3].equals("guess")) {
                                 f[info[0] - 1][info[1] - 1].setText(stringCoorArr[2]);
                                 f[info[0] - 1][info[1] - 1].setName((info[0] - 1) + "," + (info[1] - 1) + ",guess");
                                 f[info[0] - 1][info[1] - 1].setFont(Bold);
                                 f[info[0] - 1][info[1] - 1].setForeground(Color.BLACK);
-                            }
-                            else if(stringCoorArr[count].equals("doodle")){
+                            } else if (stringCoorArr[count].equals("doodle")) {
                                 f[info[0] - 1][info[1] - 1].setText(stringCoorArr[2]);
                                 f[info[0] - 1][info[1] - 1].setName((info[0] - 1) + "," + (info[1] - 1) + ",doodle");
                                 f[info[0] - 1][info[1] - 1].setFont(doodleFont);
@@ -494,10 +489,10 @@ public class MainBoard extends JPanel {
                                 Border Wrong = BorderFactory.createLineBorder(Color.RED, 3);
                                 f[info[0] - 1][info[1] - 1].setBorder(Wrong);
                             } else f[info[0] - 1][info[1] - 1].setBorder(Regular);
-                            
+
                             count = f[info[0] - 1][info[1] - 1].getName().split(",", -1).length - 1;
                             String type[] = f[info[0] - 1][info[1] - 1].getName().split(",");
-                            if (count > 2 && f[info[0] - 1][info[1] - 1].getText().equals(stringCoorArr[2]) && type[2].equals("guess")){
+                            if (count > 2 && f[info[0] - 1][info[1] - 1].getText().equals(stringCoorArr[2]) && type[2].equals("guess")) {
                                 if (!difficulty.toString().equals("Devilish"))
                                     score += (81 - difficulty.getNumberOfCellsToDisplay()) * 7 - view.getTimer();
                                 else
@@ -506,13 +501,13 @@ public class MainBoard extends JPanel {
                         }
                     }
                 }
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
             }
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
         }
         return score;
     }
-    
+
     public final void isFinished(Difficulty d) {
         File file = new File(Tools.getDocumentsPath() + "/Sudoku/" + user + "/" + d.toString() + ".txt");
         int info[] = new int[2];
@@ -541,19 +536,19 @@ public class MainBoard extends JPanel {
         int time = view.getTimer();
         view.stopTimer();
         CheckBoard(difficulty);
-        
+
         JOptionPane.showMessageDialog(this, "You have completed this game!");
         view.dispose();
         LeaderBoard leaderBoard = new LeaderBoard(user);
         leaderBoard.setLocationRelativeTo(null);
         leaderBoard.setVisible(true);
         leaderBoard.setTitle("Leaderboard");
-        
+
         new File(Tools.getDocumentsPath() + "/Sudoku/" + user + "/" + d.toString() + ".txt").delete();
-        if(difficulty == Difficulty.TEST)
+        if (difficulty == Difficulty.TEST)
             leaderBoard.newHighScore(Difficulty.EASY, user, score + "", time + "");
         leaderBoard.newHighScore(d, user, score + "", time + "");
-        
+
     }
 
     //gets the contents of the cell 

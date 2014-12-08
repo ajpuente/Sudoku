@@ -5,13 +5,13 @@
  */
 package sudoku;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
 
 /**
  * @author Alec
@@ -158,13 +158,12 @@ public class MainMenu extends javax.swing.JFrame {
             }
             if (d != null) {
                 System.out.println("DEBUG: NEW GAME DIFFICULTY " + d.toString());
-                if(Save.loadGame(user, d)){
+                if (Save.loadGame(user, d)) {
                     setVisible(false);
                     this.dispose();
-                }
-                else
+                } else
                     JOptionPane.showMessageDialog(this, "No Save File Found!");
-                
+
             }
         }
     }
@@ -189,8 +188,7 @@ public class MainMenu extends javax.swing.JFrame {
                 View.getBoard().PopulateBoard(new File(Tools.getDocumentsPath() + "/Sudoku/" + user + "/" + d.toString() + ".txt"));
                 setVisible(false);
                 dispose();
-            }
-            else if (d == Difficulty.TEST){
+            } else if (d == Difficulty.TEST) {
                 System.out.println("DEBUG: NEW GAME DIFFICULTY " + d.toString());
                 View = new GameView(user, d);
                 Save.initialSave(d, user);
@@ -266,7 +264,13 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private static String user;
     private static GameView View;
-    public static GameView getView(){return View;}
-    public static void setView(GameView View) {MainMenu.View = View;}
+
+    public static GameView getView() {
+        return View;
+    }
+
+    public static void setView(GameView View) {
+        MainMenu.View = View;
+    }
     // End of variables declaration                   
 }
